@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <link rel="stylesheet" href="{{ url_for('static', filename="style.css") }}" />
+    <title>Hotel Reservation Prediction</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Hotel Reservation Prediction</h2>
+
+        {% if prediction != None %}
+            <div class="prediction">
+            {% if prediction == 1 %}
+                Guest is likely to cancel
+            {% else %}
+                Guest is unlikely to cancel
+            {% endif %}
+
+            </div>
+            <br/><br/>
+        {% endif %}
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label>
+                    Lead Time
+                    <input type="number" id="lead_time" name="lead_time" min=0 required/>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Number of Special Requests
+                    <input 
+                        type="number" 
+                        id="no_of_special_requests" 
+                        name="no_of_special_requests" 
+                        min=0
+                        required/>
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Average Price per Room
+                    <input 
+                        type="number" 
+                        id="avg_price_per_room" 
+                        name="avg_price_per_room" 
+                        min=0
+                        required/>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Arrival Month
+                    <select 
+                        type="number" 
+                        id="arrival_month" 
+                        name="arrival_month" 
+                        required>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Arrival Date
+                    <input 
+                        type="number" 
+                        id="arrival_date" 
+                        name="arrival_date" 
+                        min=1
+                        max=31
+                        required/>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Market Segment Type
+                    <select 
+                        id="market_segment_type" 
+                        name="market_segment_type" 
+                        required>
+                        <option value="0">Aviation</option>
+                        <option value="1">Complementary</option>
+                        <option value="2">Corporate</option>
+                        <option value="3">Offline</option>
+                        <option value="4">Online</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Number of Weeknights
+                    <input 
+                        type="number" 
+                        id="no_of_week_nights" 
+                        name="no_of_week_nights" 
+                        min=0
+                        required/>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Number of Weekend Nights
+                    <input 
+                        type="number" 
+                        id="no_of_weekend_nights" 
+                        name="no_of_weekend_nights"
+                        min=0
+                        required/>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Type of Meal Plan
+                    <select 
+                        id="type_of_meal_plan" 
+                        name="type_of_meal_plan" 
+                        required>
+                        <option value="0">Meal Plan 1</option>
+                        <option value="1">Meal Plan 2</option>
+                        <option value="2">Meal Plan 3</option>
+                        <option value="3">Not Selected</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Room Type Reserved
+                    <select 
+                        id="room_type_reserved" 
+                        name="room_type_reserved" 
+                        required>
+                        <option value="0">Room Type 1</option>
+                        <option value="1">Room Type 2</option>
+                        <option value="2">Room Type 3</option>
+                        <option value="3">Room Type 4</option>
+                        <option value="4">Room Type 5</option>
+                        <option value="5">Room Type 6</option>
+                        <option value="6">Room Type 7</option>
+                    </select>
+                </label>
+            </div> 
+            
+            <input type="submit" name="Predict"></input>
+            
+        </form>
+    </div>
+</body>
+</html>
