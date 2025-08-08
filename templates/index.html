@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-    <link rel="stylesheet" href="{{ url_for('static', filename="style.css") }}" />
-    <title>Hotel Reservation Prediction</title>
+    <title>Hotel Reservation Prediction - Dark Mode</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 
 <body>
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark Mode</span>
+    </button>
+
     <div class="container">
         <h2>Hotel Reservation Prediction</h2>
 
-        {% if prediction != None %}
-            <div class="prediction">
+        {% if prediction and prediction != None %}
+            <div class="prediction {{ 'positive' if prediction == 1 else 'negative' }}">
             {% if prediction == 1 %}
-                Guest is likely to cancel
-            {% else %}
                 Guest is unlikely to cancel
+            {% else %}
+                Guest is likely to cancel
             {% endif %}
-
             </div>
             <br/><br/>
         {% endif %}
@@ -171,5 +176,6 @@
             
         </form>
     </div>
+
 </body>
 </html>

@@ -1,7 +1,6 @@
 from functools import lru_cache
-from os import path
-from pydantic import BaseModel
-import yaml
+from ipaddress import IPv4Address
+from pydantic import BaseModel, IPvAnyAddress
 from config.model_params import LightGPMParams, RandomSearchParams
 from config.paths import Paths
 from src.utils.common import read_yaml_file
@@ -25,9 +24,15 @@ class Model(BaseModel):
     light_params: LightGPMParams
     random_search: RandomSearchParams
 
+class Application(BaseModel):
+    host: IPvAnyAddress = IPv4Address("0.0.0.0")
+    port: int = 8080
+    debug: bool = False
+
 class Config(BaseModel):
     data_ingestion: DataIngestionConfig
     data_processing: PreprocessingConfig
+    application: Application
     paths: Paths
     model: Model
     random_state: int = 42
