@@ -101,3 +101,6 @@ logs
 # Learning files
 mlruns
 artifacts
+
+# Jenkins stuff
+jenkins_home
