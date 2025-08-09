@@ -1,0 +1,14 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    build:
+      context: custom_jenkins
+      dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./custom_jenkins/jenkins_home:/var/jenkins_home
+    user: root
+    ports:
+      - 8000:8080
+      - 5000:5000
+    privileged: true
