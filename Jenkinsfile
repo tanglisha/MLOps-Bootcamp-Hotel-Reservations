@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GCP_PROJECT = "precise-ascent-468019-a0 "
+        GCP_PROJECT = "precise-ascent-468019-a0"
         GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
     }
 
@@ -27,10 +27,10 @@ pipeline {
                         gcloud config set project $(GCP_PROJECT)
                         gcloud auth configure-docker --quiet 
                         docker build -t gcr.io/$(GCP_PROJECT)/ml-bootcamp-hotel-reservations:latest .
-                        docker push -t gcr.io/$(GCP_PROJECT)/ml-bootcamp-hotel-reservations:latest
+                        docker push gcr.io/$(GCP_PROJECT)/ml-bootcamp-hotel-reservations:latest
                         '''
                     }
-                }]     
+                }   
                 } // withCredentials
             } // steps
         } // build & push image to gcp
