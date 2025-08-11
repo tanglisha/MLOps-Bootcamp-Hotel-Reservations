@@ -18,7 +18,7 @@ pipeline {
 
         stage("Build & push image to GCP") {
             steps {
-                withCredentials{[file(credentialsId:"gcp-key", variable:"GOOGLE_APPLICATION_CREDENTIAL"){
+                withCredentials{bindings=[file(credentialsId:"gcp-key", variable:"GOOGLE_APPLICATION_CREDENTIAL"){
                     script{
                         echo "Build & push image to GCP"
                         sh '''
