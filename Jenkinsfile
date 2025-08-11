@@ -31,7 +31,8 @@ pipeline {
                         '''
                     }
                 }]     
-        }
-    }
+                } // withCredentials
+            } // steps
+        } // build & push image to gcp
+        } // stages
 }
-
