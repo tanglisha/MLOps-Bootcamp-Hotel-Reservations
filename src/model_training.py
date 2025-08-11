@@ -13,7 +13,6 @@ from config.paths import Paths
 from src.logger import get_logger
 from src.utils.common import DataSplitter, load_data
 import mlflow
-import mlflow.sklearn
 
 logger = get_logger(__name__)
 

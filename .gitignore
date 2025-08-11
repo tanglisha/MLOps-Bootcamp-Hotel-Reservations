@@ -104,3 +104,6 @@ artifacts
 
 # Jenkins stuff
 jenkins_home
+
+# credentials
+/creds

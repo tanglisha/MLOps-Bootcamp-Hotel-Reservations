@@ -1366,6 +1366,7 @@ files = [
 
 [package.dependencies]
 numpy = ">=1.17.0"
+scikit-learn = {version = ">=0.24.2", optional = true, markers = "extra == \"scikit-learn\""}
 scipy = "*"
 
 [package.extras]
@@ -3302,4 +3303,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "49ed8c06a2149efe4ed27b57172705acb3e08a51ab192a1fab813c7ec323c569"
+content-hash = "970ffb1f253efdd8615b4a81dab8a78f01f24153ec1adc90c512852096611202"
