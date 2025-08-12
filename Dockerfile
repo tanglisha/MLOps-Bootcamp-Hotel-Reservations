@@ -33,8 +33,6 @@ RUN pip install --upgrade pip
 
 RUN poetry install
 
-RUN ls -lahR .
-
 RUN poetry run python pipeline/training_pipeline.py
 RUN rm -rf /creds/*
 RUN poetry env activate
