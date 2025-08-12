@@ -3,6 +3,9 @@ services:
     build:
       context: custom_jenkins
       dockerfile: Dockerfile
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./custom_jenkins/jenkins_home:/var/jenkins_home
@@ -21,6 +24,8 @@ services:
     image: "gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest"
     env_file: .envrc
     environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
       GOOGLE_APPLICATION_CREDENTIALS: gcloud_secrets_file
     ports:
       - 8000:8000
@@ -30,4 +35,4 @@ services:
 
 secrets:
   gcloud_secrets_file:
-    file: "./creds/gcp_key.jsop"
+    file: "creds/gcp_key.json"

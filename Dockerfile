@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-# check=skip=SecretsUsedInArgOrEnv
 FROM python:slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -27,6 +25,9 @@ COPY pyproject.toml /app/pyproject.toml
 COPY poetry.lock /app/poetry.lock
 COPY ./config /app/config
 COPY ./creds* /creds
+
+RUN echo "looking for secrets file"
+RUN --mount=type=secret,id=gcloud_secrets_file,required ls -la /run/secrets/
 
 RUN pip install --upgrade pip
 
