@@ -27,7 +27,7 @@ COPY ./pipeline /app/pipeline
 COPY pyproject.toml /app/pyproject.toml
 COPY poetry.lock /app/poetry.lock
 COPY ./config /app/config
-COPY ./creds /creds
+COPY ./creds* /creds
 
 RUN pip install --upgrade pip
 
