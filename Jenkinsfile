@@ -18,17 +18,15 @@ pipeline {
 
         stage("Build & push image to GCP") {
             steps {
-                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIAL')]){
+                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){
                     script{
                         echo "Build & push image to GCP"
                         sh '''
                         export PATH=$PATH:"${GCLOUD_PATH}"
-                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIAL}
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
-                        // mkdir creds
-                        echo ${GOOGLE_APPLICATION_CREDENTIAL} > creds/gcp_key.json
-                        docker build --build-arg  PRIV_KEY_FILE=$GOOGLE_APPLICATION_CREDENTIAL -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
+                        docker build --build-arg  PRIV_KEY_FILE=$GOOGLE_APPLICATION_CREDENTIALS -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
                     }
