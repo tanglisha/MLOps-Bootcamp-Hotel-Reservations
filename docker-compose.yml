@@ -16,6 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: "gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest"
     env_file: .envrc
     environment:
       GOOGLE: /run/secrets/gcp_key
