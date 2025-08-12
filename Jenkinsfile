@@ -26,7 +26,7 @@ pipeline {
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
-                        CREDS=${GOOGLE_APPLICATION_CREDENTIALS} docker build --build-arg  PRIV_KEY_FILE=${CREDS} -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
+                        docker build --env  GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS} -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
                     }

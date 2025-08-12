@@ -33,7 +33,7 @@ RUN pip install --upgrade pip
 
 RUN poetry install
 
-RUN GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_CREDS}" poetry run python pipeline/training_pipeline.py
+RUN if [ -z ${GOOGLE_CREDS} ] then GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_CREDS}"; endif poetry run python pipeline/training_pipeline.py
 RUN poetry env activate
 
 EXPOSE 8080
