@@ -22,7 +22,7 @@ pipeline {
                     script{
                         echo "Build & push image to GCP"
                         sh '''
-                        export PATH=$PATH:"${GCLOUD_PATH}"
+                        export PATH=$PATH:"${GOOGLE_APPLICATION_CREDENTIALS}"
                         mkdir -p ./creds
                         export GCREDS=./creds/gcp_key.json
                         cp ${GOOGLE_APPLICATION_CREDENTIALS} ${GCREDS}
@@ -30,8 +30,8 @@ pipeline {
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
                         ls -lah
-                        docker build --build-arg "GOOGLE_APPLICATION_CREDENTIALS=GCREDS" -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
-                        rm ./creds/gcp_key.json 
+                        docker build --build-arg "GOOGLE_APPLICATION_CREDENTIALS=${GCREDS}" -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
+                        rm ${GCREDS} 
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
                     }
