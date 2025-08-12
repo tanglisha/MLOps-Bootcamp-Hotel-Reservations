@@ -19,15 +19,15 @@ services:
     image: "gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest"
     env_file: .envrc
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/GOOGLE_APPLICATION_CREDENTIALS
+      GOOGLE_APPLICATION_CREDENTIALS: gcloud_secrets_file
     ports:
       - 8000:8000
       - 8080:8080
     volumes:
       - ./:/app
     secrets:
-      - GOOGLE_APPLICATION_CREDENTIALS
+      - gcloud_secrets_file
 
 secrets:
-  GOOGLE_APPLICATION_CREDENTIALS:
+  gcloud_secrets_file:
     file: "./creds/gcp_key.jsop"
