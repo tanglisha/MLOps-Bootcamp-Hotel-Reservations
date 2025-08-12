@@ -6,7 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV POETRY_VIRTUALENVS_OPTIONS_SYSTEM_SITE_PACKAGES=1
 ENV POETRY_VIRTUALENVS_IN_PROJECT=0
-ARG GOOGLE_APPLICATION_CREDENTIALS="/creds/gcp_key.json"
+ARG GOOGLE_CREDS="/creds/gcp_key.json"
+ENV GOOGLE_APPLICATION_CREDENTIALS=GOOGLE_CREDS
 
 WORKDIR /app
 
@@ -34,7 +35,6 @@ RUN pip install --upgrade pip
 RUN poetry install
 
 RUN poetry run python pipeline/training_pipeline.py
-RUN rm -rf /creds/*
 RUN poetry env activate
 
 EXPOSE 8080
