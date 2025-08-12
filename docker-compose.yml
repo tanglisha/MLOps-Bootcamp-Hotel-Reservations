@@ -19,7 +19,7 @@ services:
     image: "gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest"
     env_file: .envrc
     environment:
-      GOOGLE: /run/secrets/gcp_key
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/GOOGLE_APPLICATION_CREDENTIALS
     ports:
       - 8000:8000
       - 8080:8080
