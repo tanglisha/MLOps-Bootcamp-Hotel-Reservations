@@ -16,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      secrets:
+        - gcloud_secrets_file
     image: "gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest"
     env_file: .envrc
     environment:
@@ -25,8 +27,6 @@ services:
       - 8080:8080
     volumes:
       - ./:/app
-    secrets:
-      - gcloud_secrets_file
 
 secrets:
   gcloud_secrets_file:
