@@ -29,7 +29,7 @@ pipeline {
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
-                        ls -lah
+                        ls -lah creds
                         docker build --build-arg "GOOGLE_APPLICATION_CREDENTIALS=${GCREDS}" -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest .
                         rm ${GCREDS} 
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
