@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV POETRY_VIRTUALENVS_OPTIONS_SYSTEM_SITE_PACKAGES=1
 ENV POETRY_VIRTUALENVS_IN_PROJECT=0
-ARG GOOGLE_APPLICATION_CREDENTIALS="/creds/gcp_key.json"
+ARG GOOGLE_APPLICATION_CREDENTIALS="change me to credential file path"
 
 WORKDIR /app
 
@@ -38,8 +38,6 @@ RUN poetry env activate
 
 EXPOSE 8080
 EXPOSE 8000
-
-# ENTRYPOINT [ "poetry", "run", "python" ]
 
 CMD ["poetry", "run", "python", "application.py" ]
 

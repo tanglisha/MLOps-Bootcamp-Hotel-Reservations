@@ -17,8 +17,16 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file: .envrc
+    environment:
+      GOOGLE: /run/secrets/gcp_key
     ports:
       - 8000:8000
       - 8080:8080
     volumes:
       - ./:/app
+    secrets:
+      - GOOGLE_APPLICATION_CREDENTIALS
+
+secrets:
+  GOOGLE_APPLICATION_CREDENTIALS:
+    file: "./creds/gcp_key.jsop"
