@@ -13,14 +13,14 @@ pipeline {
                     echo "Checkout repo"
                     git config --global --add safe.directory "*"
                     ls -lah .
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token-august', name: 'HotelReservations', url: 'https://github.com/tanglisha/MLOps-Bootcamp-Hotel-Reservations.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', name: 'HotelReservations', url: 'https://github.com/tanglisha/MLOps-Bootcamp-Hotel-Reservations.git']])
                 }
             }
         }
 
         stage("Build & push image to GCP") {
             steps {
-                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){
+                withCredentials([file(credentialsId: 'gcp-creds', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){
                     script{
                         echo "Build & push image to GCP"
                         sh '''
