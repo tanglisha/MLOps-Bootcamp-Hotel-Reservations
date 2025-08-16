@@ -35,4 +35,4 @@ services:
 
 secrets:
   GOOGLE_APPLICATION_CREDENTIALS:
-    file: "creds/gcp_key.json"
+    file: "${GOOGLE_APPLICATION_CREDENTIALS:-creds/gcp_key.json}"

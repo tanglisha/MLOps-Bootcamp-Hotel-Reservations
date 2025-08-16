@@ -4,7 +4,6 @@ FROM python:slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ARG SECRETS_DIR=/app
 
 WORKDIR /app
 RUN useradd -b /app -s /bin/bash app
@@ -28,6 +27,7 @@ COPY ./config /app/config
 COPY ./pipeline /app/pipeline
 COPY pyproject.toml /app/pyproject.toml
 COPY ./config /app/config
+# TODO: Can we delete the below?
 COPY ./creds* /creds
 
 RUN poetry install
