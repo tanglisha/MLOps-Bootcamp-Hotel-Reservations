@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Hotel Reservations"
+name = "hotel-reservations"
 version = "0.1.0"
 description = ""
 authors = ["Liz Dahlstrom <1231540+tanglisha@users.noreply.github.com>"]
