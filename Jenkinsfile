@@ -12,11 +12,10 @@ pipeline {
                 script {
                     echo "Checkout repo"
                     git config --global --add safe.directory "*"
-                    ls -lah .
                     checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', name: 'HotelReservations', url: 'https://github.com/tanglisha/MLOps-Bootcamp-Hotel-Reservations.git']])
                 }
-            }
-        }
+            } // steps
+        } // stage: checkout repo
 
         stage("Build & push image to GCP") {
             steps {
@@ -34,7 +33,7 @@ pipeline {
                         } // script
                 } // withCredentials
             } // steps
-        } // build & push image to gcp
+        } // stage: build & push image to gcp
     } // stages
 } // pipeline
 
