@@ -51,7 +51,8 @@ RUN usermod -aG docker jenkins && \
     mkdir -p {/var/lib/docker,/var/jenkins_home}
 
 # create a host volume
-VOLUME /var/lib/docker /var/jenkins_home
+# the z option allows the volume to be shared
+VOLUME /var/lib/docker:/var/jenkins_home:z
 
 # Run as the jenkins user
 USER jenkins

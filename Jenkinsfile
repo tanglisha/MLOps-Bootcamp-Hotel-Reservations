@@ -27,7 +27,6 @@ pipeline {
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
                         docker build --secret id=GOOGLE_APPLICATION_CREDENTIALS,src=${GOOGLE_APPLICATION_CREDENTIALS} -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest . 
-                        // docker compose build app
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
                         } // script
