@@ -31,11 +31,11 @@ pipeline {
                         docker compose build app
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
-                    }
-                }   
-            } // withCredentials
-        } // steps
-    } // build & push image to gcp
-} // stages
+                        } // script
+                } // withCredentials
+            } // steps
+        } // build & push image to gcp
+    } // stages
+} // pipeline
 
 // 1:06
