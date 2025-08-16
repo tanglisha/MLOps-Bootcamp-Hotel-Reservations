@@ -1,46 +1,44 @@
+# Requires secrets from compose file to work
+
 FROM python:slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV POETRY_VIRTUALENVS_OPTIONS_SYSTEM_SITE_PACKAGES=1
-ENV POETRY_VIRTUALENVS_IN_PROJECT=0
+ARG SECRETS_DIR=/app
 
 WORKDIR /app
+RUN useradd -b /app -s /bin/bash app
 
 RUN apt update && \
     apt install -y --no-install-recommends \ 
     libgomp1 \
+    direnv \
+    git \
     && \
     apt clean \
     && \
-    rm -rf /var/lib/apt/lists
+    rm -rf /var/lib/apt/lists \
+    && \
+    chown app:app /app
 
-RUN pip install poetry && touch README.md
+RUN pip install --upgrade pip poetry && touch README.md
 
-# COPY ./*.py /app/
 COPY ./src /app/src
 COPY ./config /app/config
 COPY ./pipeline /app/pipeline
 COPY pyproject.toml /app/pyproject.toml
-COPY poetry.lock /app/poetry.lock
 COPY ./config /app/config
 COPY ./creds* /creds
 
-RUN echo "looking for secrets file"
-RUN --mount=type=secret,id=gcloud_secrets_file,required ls -la /run/secrets/
-
-RUN pip install --upgrade pip
-
 RUN poetry install
 
-# RUN if [ -z ${GOOGLE_APPLICATION_CREDENTIALS} ] ; then export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS}"; fi; poetry run python pipeline/training_pipeline.py
-RUN poetry run python pipeline/training_pipeline.py
-RUN poetry env activate
+RUN --mount=type=secret,id=GOOGLE_APPLICATION_CREDENTIALS,target=/app/gcp_key.json \
+    GOOGLE_APPLICATION_CREDENTIALS=/app/gcp_key.json poetry run python pipeline/training_pipeline.py
 
 EXPOSE 8080
 EXPOSE 8000
 
-CMD ["poetry", "run", "python", "application.py" ]
+RUN chown -R app:app /app
+USER app
 
-# In GCP, enable Google Cloud Registry API, Google Artifact Registry API, and Cloud Resource Manager API
-# Add role "owner" to service account. There's probably a better way to do this.
+CMD ["poetry", "run", "python", "application.py" ]

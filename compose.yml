@@ -20,13 +20,13 @@ services:
       context: .
       dockerfile: Dockerfile
       secrets:
-        - gcloud_secrets_file
+        - GOOGLE_APPLICATION_CREDENTIALS
     image: "gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest"
     env_file: .envrc
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      GOOGLE_APPLICATION_CREDENTIALS: gcloud_secrets_file
+      GOOGLE_APPLICATION_CREDENTIALS: GOOGLE_APPLICATION_CREDENTIALS
     ports:
       - 8000:8000
       - 8080:8080
@@ -34,5 +34,5 @@ services:
       - ./:/app
 
 secrets:
-  gcloud_secrets_file:
+  GOOGLE_APPLICATION_CREDENTIALS:
     file: "creds/gcp_key.json"

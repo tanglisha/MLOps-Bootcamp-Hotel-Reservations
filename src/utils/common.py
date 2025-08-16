@@ -1,4 +1,3 @@
-import csv
 from pathlib import Path
 from src.logger import get_logger
 import yaml

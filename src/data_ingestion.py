@@ -2,7 +2,6 @@ from logging import config
 import pandas as pd
 from numpy.random import RandomState
 from google.cloud import storage
-from sklearn.model_selection import train_test_split
 from src.logger import get_logger
 from config.base_config import Config, get_config
 
