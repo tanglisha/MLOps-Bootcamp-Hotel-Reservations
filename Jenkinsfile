@@ -26,7 +26,7 @@ pipeline {
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
-                        docker build -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest . 
+                        docker build --secret id=GOOGLE_APPLICATION_CREDENTIALS,src=${GOOGLE_APPLICATION_CREDENTIALS} -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest . 
                         // docker compose build app
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
@@ -58,4 +58,5 @@ pipeline {
     } // stages
 } // pipeline
 
-// 1:06
+// TODO: You've changed how secrets work, switch back to compose if you can't figure out 
+// how to include them in vanilla docker build
