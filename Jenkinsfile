@@ -46,7 +46,7 @@ pipeline {
                         gcloud run deploy ml-bootcamp-hotel-reservations \
                             --image=gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest \
                             --platform=managed \
-                            --region=us-central-1 \
+                            --region=us-central1 \
                             --allow-unauthenticated \
                             --set-env-vars PORT=8080
                         '''
