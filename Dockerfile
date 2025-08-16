@@ -1,4 +1,5 @@
 # Requires secrets from compose file to work
+# Building this image takes a long time because it's creating the model
 
 FROM python:slim
 
@@ -22,13 +23,15 @@ RUN apt update && \
 
 RUN pip install --upgrade pip poetry && touch README.md
 
+# Copy over the project files needed in the image
 COPY ./src /app/src
 COPY ./config /app/config
 COPY ./pipeline /app/pipeline
 COPY pyproject.toml /app/pyproject.toml
 COPY ./config /app/config
-# TODO: Can we delete the below?
-COPY ./creds* /creds
+COPY ./static /app/static
+COPY ./templates /app/templates
+COPY ./application.py /app/application.py
 
 RUN poetry install
 
