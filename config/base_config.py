@@ -15,7 +15,7 @@ class DataIngestionConfig(BaseModel):
 class PreprocessingConfig(BaseModel):
     skewness_threshold: int = 5
     number_of_features: int = 10
-    categorical_columns: list[str] = [
+    categorical_column_names: list[str] = [
         "type_of_meal_plan",
         "required_car_parking_space",
         "room_type_reserved",
@@ -23,7 +23,7 @@ class PreprocessingConfig(BaseModel):
         "repeated_guest",
         "booking_status",
     ]
-    numerical_columns: list[str] = [
+    numerical_column_names: list[str] = [
         "no_of_adults",
         "no_of_children",
         "no_of_weekend_nights",

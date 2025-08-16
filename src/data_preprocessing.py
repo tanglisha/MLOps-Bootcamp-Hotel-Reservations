@@ -107,7 +107,7 @@ class DataProcessor(DataSplitter):
         df.drop_duplicates(inplace=True)
 
         # Split the columns up by whether they're a categor or number
-        self._encode_categories(df, self.config.data_processing.categorical_columns)
+        self._encode_categories(df, self.config.data_processing.categorical_column_names)
         self._adjust_skew(df)
         return df
 

@@ -102,8 +102,8 @@ class ModelTraining(DataSplitter):
             with mlflow.start_run():
                 logger.info("Starting mlflow experimentation")
                 logger.info("Logging the training and testing datasets to mlflow")
-                mlflow.log_artifact(self.paths.processed_training_data_filepath, artifact_path="datasets")
-                mlflow.log_artifact(self.paths.processed_test_data_filepath, artifact_path="datasets")
+                mlflow.log_artifact(str(self.paths.processed_training_data_filepath), artifact_path="datasets")
+                mlflow.log_artifact(str(self.paths.processed_test_data_filepath), artifact_path="datasets")
 
                 X_train, y_train, X_test, y_test = self.load_and_split_data()
                 model = self.train_model(X_train, y_train)
@@ -116,7 +116,7 @@ class ModelTraining(DataSplitter):
                 self.save(model)
 
                 logger.info("Logging the model into mlflow")
-                mlflow.log_artifact(self.paths.model_output_filepath)
+                mlflow.log_artifact(str(self.paths.model_output_filepath))
         except Exception as e:
             logger.exception("Failed to train model", e)
         finally:
