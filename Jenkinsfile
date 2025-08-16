@@ -11,8 +11,9 @@ pipeline {
             steps {
                 script {
                     echo "Checkout repo"
+                    git config --global --add safe.directory "*"
                     ls -lah .
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [cleanAfterCheckout()], userRemoteConfigs: [[credentialsId: 'github-token', name: 'HotelReservations', url: 'https://github.com/tanglisha/MLOps-Bootcamp-Hotel-Reservations.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', name: 'HotelReservations', url: 'https://github.com/tanglisha/MLOps-Bootcamp-Hotel-Reservations.git']])
                 }
             }
         }
