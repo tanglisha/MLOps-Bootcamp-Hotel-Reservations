@@ -35,4 +35,6 @@ services:
 
 secrets:
   GOOGLE_APPLICATION_CREDENTIALS:
+    # If the GOOGLE_APPLICATION_CREDENTIALS env var is set, use that to find the creds location
+    # Otherwise use the local file at creds/gcp_key.json
     file: "${GOOGLE_APPLICATION_CREDENTIALS:-creds/gcp_key.json}"
