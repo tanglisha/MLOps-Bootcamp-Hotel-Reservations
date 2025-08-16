@@ -26,13 +26,34 @@ pipeline {
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet 
-                        docker compose build app
+                        docker build -t gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest . 
+                        // docker compose build app
                         docker push gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest
                         '''
                         } // script
                 } // withCredentials
             } // steps
         } // stage: build & push image to gcp
+
+        stage("Deploy to Google Cloud Run") {
+            steps {
+                withCredentials([file(credentialsId: 'gcp-creds', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){
+                    script{
+                        echo "Deploy to Google Cloud Run"
+                        sh '''
+                        export PATH=$PATH:"${GOOGLE_APPLICATION_CREDENTIALS}"
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        gcloud config set project ${GCP_PROJECT}
+                        gcloud run deploy ml-bootcamp-hotel-reservations \
+                            --image=gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest \
+                            --platform=managed \
+                            --region=us-central-1 \
+                            --allow=unauthenticated 
+                        '''
+                        } // script
+                } // withCredentials
+            } // steps
+        } // stage: Deploy to Google Cloud Run
     } // stages
 } // pipeline
 
