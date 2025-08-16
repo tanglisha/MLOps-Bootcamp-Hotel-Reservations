@@ -11,6 +11,7 @@ pipeline {
             steps {
                 script {
                     echo "Checkout repo"
+                    ls -lah .
                     checkout scmGit(branches: [[name: '*/main']], extensions: [cleanAfterCheckout()], userRemoteConfigs: [[credentialsId: 'github-token', name: 'HotelReservations', url: 'https://github.com/tanglisha/MLOps-Bootcamp-Hotel-Reservations.git']])
                 }
             }
