@@ -47,9 +47,9 @@ pipeline {
                             --image=gcr.io/${GCP_PROJECT}/ml-bootcamp-hotel-reservations:latest \
                             --platform=managed \
                             --region=us-central1 \
-                            --allow-unauthenticated \
-                            --port=8080
+                            --allow-unauthenticated 
                         '''
+                        // default port is 5000
                         } // script
                 } // withCredentials
             } // steps

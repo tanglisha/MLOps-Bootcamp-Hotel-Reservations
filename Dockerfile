@@ -1,7 +1,7 @@
 # Requires secrets from compose file to work
 # Building this image takes a long time because it's creating the model
 
-FROM python:slim
+FROM python:slim as build_model
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -38,8 +38,14 @@ RUN poetry install
 RUN --mount=type=secret,id=GOOGLE_APPLICATION_CREDENTIALS,target=/app/gcp_key.json \
     GOOGLE_APPLICATION_CREDENTIALS=/app/gcp_key.json poetry run python pipeline/training_pipeline.py
 
-EXPOSE 8080
-EXPOSE 8000
+FROM python:slim
+COPY --from=build_model /app/artifacts/models:/app/artifacts/models
+COPY --from=build_model /app/config:/app/config
+COPY --from=build_model /app/application.py:/app/application.py
+
+RUN pip update --upgrade pip joblib flask
+
+EXPOSE 5000
 
 RUN chown -R app:app /app
 USER app

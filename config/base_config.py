@@ -46,7 +46,7 @@ class Model(BaseModel):
 
 class Application(BaseModel):
     host: IPvAnyAddress = IPv4Address("0.0.0.0")
-    port: int = 8080
+    port: int = 5000
     debug: bool = False
 
 
