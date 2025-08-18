@@ -39,9 +39,9 @@ RUN --mount=type=secret,id=GOOGLE_APPLICATION_CREDENTIALS,target=/app/gcp_key.js
     GOOGLE_APPLICATION_CREDENTIALS=/app/gcp_key.json poetry run python pipeline/training_pipeline.py
 
 FROM python:slim
-COPY --from=build_model /app/artifacts/models:/app/artifacts/models
-COPY --from=build_model /app/config:/app/config
-COPY --from=build_model /app/application.py:/app/application.py
+COPY --from=build_model /app/artifacts/models /app/artifacts/models
+COPY --from=build_model /app/config /app/config
+COPY --from=build_model /app/application.py /app/application.py
 
 RUN pip update --upgrade pip joblib flask
 
